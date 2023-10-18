@@ -48,3 +48,20 @@ void free_list(list_t **head)
 
 	*head = NULL;
 }
+
+/**
+ * free_grid - frees a 2 dimensional grid
+ *	previously allocated by alloc_grid
+ * @grid: the grid
+ */
+
+void free_grid(char **grid)
+{
+	int i = 0;
+
+	for (i = 0; grid[i] ; i++)
+	{
+		free(grid[i]);
+	}
+	free(grid);
+}
