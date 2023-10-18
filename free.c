@@ -65,3 +65,18 @@ void free_grid(char **grid)
 	}
 	free(grid);
 }
+
+/**
+ * free_grid_half - frees the inside of a 2D Arr
+ * @grid: the array to free
+ */
+
+void free_grid_half(char **grid)
+{
+	int i = 0;
+
+	for (i = 0; grid[i] ; i++)
+	{
+		free(grid[i]);
+	}
+}
