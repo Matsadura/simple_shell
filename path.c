@@ -26,3 +26,34 @@ int PathToList(list_t **head, char *path)
 	free(path_cpy);
 	return (0);
 }
+
+/**
+ * cmd_to_path - converts a cmd to full path
+ * @head: the path list
+ * @command: the cmd to convert
+ * Return: the full cmd path
+ */
+
+char *cmd_to_path(list_t *head, char *command)
+{
+	char buff[1024];
+	list_t *current;
+	struct stat st;
+
+	current = head;
+	while (current)
+	{
+		_strcpy(buff, current->path);
+		_strcat(buff, "/");
+		_strcat(buff, command);
+		if (stat(buff, &st) == 0)
+		{
+			command = _strdup(buff);
+			return (command);
+		}
+		_strcpy(buff, "");
+		current = current->next;
+	}
+
+	return (NULL);
+}
