@@ -1,8 +1,6 @@
 #include "main.h"
 #include <stdarg.h>
 
-void free_functions(void);
-
 /**
  * free_char1 - frees multple arguments of char *
  * @n: number of arguments
