@@ -69,3 +69,22 @@ void _exec_built(char **token, int *exit_code, size_t ncmd,
 		*exit_code = change_dir(token, prg, ncmd, env);
 	}
 }
+
+/**
+ * _printenv - prints the environment
+ * @exit_code: the exit code
+ * @env: the copy enivronment
+ */
+
+void _printenv(int *exit_code, New_env *env)
+{
+	int i;
+
+	for (i = 0; env->env_var[i]; i++)
+	{
+		write(STDOUT_FILENO, env->env_var[i], _strlen(env->env_var[i]));
+		write(STDOUT_FILENO, "\n", 1);
+	}
+
+	*exit_code = 0;
+}
