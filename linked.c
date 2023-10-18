@@ -32,3 +32,26 @@ list_t *add_node_end(list_t **head, const char *p)
 
 	return (new);
 }
+
+/**
+ * _getenv - extracts the enviromental variable
+ * @s: the variable
+ * @env: the global enviromental variable
+ * Return: the variable's elements
+ */
+
+char *_getenv(char *s, char **env)
+{
+	size_t sl = _strlen(s);
+	char **tmp = env;
+
+	while (*tmp)
+	{
+		if (_strncmp(*tmp, s, sl) == 0 && (*tmp)[sl] == '=')
+		{
+			return (&(*tmp)[sl + 1]);
+		}
+		tmp++;
+	}
+	return (NULL);
+}
