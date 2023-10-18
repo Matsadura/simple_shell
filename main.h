@@ -67,6 +67,7 @@ char **line_tokens(char *line, char *delim);
 char *get_cmd(list_t *head, char *str, int *exit_code,
 		char *exec_err, char *name, size_t ncmd);
 char *_liner(char *str);
+char *int_to_str(int n);
 
 /*<---------Built Ins----------->*/
 int check_exit(char *s, int *exit_code, char *prg, size_t ncmd);
@@ -97,13 +98,14 @@ void error_ret(char *err_msg, char *prg, size_t ncmd,
 		char *cmd, char *tmp);
 
 /*<---------Singly Linkled List Related----------->*/
-size_t print_list(const list_t *h);
 list_t *add_node_end(list_t **head, const char *p);
 
 /*<---------Path Related----------->*/
 char *cmd_to_path(list_t *head, char *command);
 int PathToList(list_t **head, char *path);
 
+/*<----------Variable Replacement---------->*/
+void _var_replace(char **toks, New_env *env, int exit_code);
 
 /*<---------Free Related----------->*/
 void free_grid(char **grid);
