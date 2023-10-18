@@ -51,3 +51,44 @@ unsigned int _strspn_token(char *s, const char *accept)
 	}
 	return (i);
 }
+
+/**
+ * _strtok - splits a string into words
+ * @input: the string
+ * @delimiter: the character to delimit the str
+ * Return: the token
+ */
+
+char *_strtok(char *input, const char *delimiter)
+{
+	static char *lastT;
+	char *token;
+
+	if (input == NULL)
+	{
+		input = lastT;
+		if (input == NULL)
+			return (NULL);
+	}
+
+	input += _strspn_token(input, delimiter);
+	if (*input == '\0')
+	{
+		lastT = NULL;
+		return (NULL);
+	}
+
+	token = input;
+	input = _strpbrk_token(token, delimiter);
+	if (input == NULL)
+	{
+		lastT = NULL;
+	}
+	else
+	{
+		*input = '\0';
+		lastT = input + 1;
+	}
+
+	return (token);
+}
