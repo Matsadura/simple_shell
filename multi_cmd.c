@@ -49,3 +49,74 @@ void X_M(char *d, char *L, int *X, size_t *N, char *P, list_t *p, New_env *env)
 	else if (_strcmp(d, "||") == 0)
 		*X = M_c(d, L, N, P, p, env, 2);
 }
+
+/**
+ * M_c - execute the commands
+ * @d: the delimiter
+ * @L: the line that contains the commands
+ * @N: number of consecutive commands
+ * @P: the name of the program
+ * @p: tha ph list
+ * @env: the copy environment
+ * @F: a Flag for the type of operator
+ * Return: the exit code
+ */
+
+int M_c(char *d, char *L, size_t *N, char *P, list_t *p, New_env *env, int F)
+
+{
+	char *cmd_list[1024], *tokens[1024], *cmd, exec_err[516];
+	int X, i,  pid, status;
+
+	tokeniz(cmd_list, L, d);
+	for (i = 0; cmd_list[i] != NULL; i++)
+	{
+		tokeniz(tokens, cmd_list[i], " ");
+		if (_built(tokens[0]))
+			_exec_built(tokens, &X, *N, P, env);
+		else
+		{
+			cmd = get_cmd(p, tokens[0], &X, exec_err, P, *N);
+			if (cmd != NULL && cmd[0] != '\0')
+			{
+				pid = fork();
+
+				if (pid == -1)
+				{
+					perror("Fork");
+					exit(98);
+				}
+				if (pid == 0)
+				{
+					if (execve(cmd, tokens, env->env_var) == -1)
+					{
+						perror("Execve");
+						_exit(2);
+					}
+				}
+				else
+				{
+					wait(&status);
+					X = status >> 8;
+				}
+				free(cmd);
+			}
+		}
+		free_grid_half(tokens);
+		if (F == 1)
+		{
+			if (X != 0)
+				break;
+		}
+		else if (F == 2)
+		{
+			if (X == 0)
+				break;
+		}
+
+	}
+	/*inter_mode();*/
+	free_grid_half(cmd_list);
+	return (X);
+}
+
