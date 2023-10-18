@@ -88,3 +88,55 @@ void _printenv(int *exit_code, New_env *env)
 
 	*exit_code = 0;
 }
+
+/**
+ * _set_env - adds a new variable to Env
+ * @var_name: the variable's name
+ * @var_value: the variable's value
+ * @condition: what to do with the variable
+ * @env: the copy environment
+ * Return: 0 for Success -1 for failure
+ */
+int _set_env(char *var_name, char *var_value, int condition, New_env *env)
+{
+	char *new_var;
+	int i;
+
+	if (var_name == NULL || var_value == NULL || _strchr(var_name, '=') != NULL)
+	{
+		perror("setenv");
+		return (-1);
+	}
+
+	new_var = malloc(_strlen(var_name) + _strlen(var_value) + 2);
+	if (new_var == NULL)
+	{
+		free(new_var);
+		perror("setenv");
+		return (-1);
+	}
+
+	_strcpy(new_var, var_name);
+	_strcat(new_var, "=");
+	_strcat(new_var, var_value);
+
+	for (i = 0; env->env_var[i]; i++)
+	{
+		if (_strncmp(env->env_var[i], var_name, _strlen(var_name)) == 0)
+		{
+			if (condition == 0)
+			{
+				free(new_var);
+				return (0);
+			}
+			free(env->env_var[i]);
+			env->env_var[i] = new_var;
+			return (0);
+		}
+	}
+
+	env->env_var = realloc(env->env_var, sizeof(char *) * (i + 2));
+	env->env_var[i + 1] = NULL;
+	env->env_var[i] = new_var;
+	return (0);
+}
