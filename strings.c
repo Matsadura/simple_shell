@@ -90,3 +90,22 @@ unsigned int _strcspn(char *s, char *reject)
 	}
 	return (i);
 }
+
+/**
+ * _strcat - concatenates two strings
+ * @dest: first string
+ * @src: second string
+ * Return: a pointer to string dest
+ */
+
+char *_strcat(char *dest, char *src)
+{
+	int j, len = _strlen(dest);
+
+	for (j = 0; src[j] != '\0'; j++)
+	{
+		dest[len + j] = src[j];
+	}
+	dest[len + j] = '\0';
+	return (dest);
+}
