@@ -22,3 +22,50 @@ int _built(char *token_0)
 	}
 	return (0);
 }
+
+/**
+ * _exec_built - Execute the builtin command
+ * @token: the string that contains the arguments
+ * @exit_code: the exit code
+ * @ncmd: the number of consecutive commands
+ * @prg: the name of the program
+ * @env: the copy environment
+ */
+
+void _exec_built(char **token, int *exit_code, size_t ncmd,
+		char *prg, New_env *env)
+{
+	char *err_set = "An error has been occured\n";
+	int tok3_sub = 1;
+
+	if (_strcmp(token[0], "env") == 0)
+	{
+		_printenv(exit_code, env);
+	}
+
+	else if (_strcmp(token[0], "setenv") == 0)
+	{
+		if (token[1] == NULL || token[2] == NULL)
+		{
+			write(STDERR_FILENO, err_set, _strlen(err_set));
+			return;
+		}
+		else if ((token[3]) != NULL)
+			tok3_sub = _atoi(token[3]);
+
+		_set_env(token[1], token[2], tok3_sub, env);
+	}
+	else if (_strcmp(token[0], "unsetenv") == 0)
+	{
+		if (token[1] == NULL)
+		{
+			write(STDERR_FILENO, err_set, _strlen(err_set));
+			return;
+		}
+		_unset_env(token[1], env);
+	}
+	else if (_strcmp(token[0], "cd") == 0)
+	{
+		*exit_code = change_dir(token, prg, ncmd, env);
+	}
+}
