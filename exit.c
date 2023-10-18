@@ -1,5 +1,6 @@
 #include "main.h"
 
+void _exit_void(void);
 /**
  * check_exit - exits the shell
  * @s: the line to check if it contains "exit"
