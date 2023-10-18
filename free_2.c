@@ -30,3 +30,17 @@ void free_m2(list_t *PATH, New_env *env, char *_line, char *line, char *cmd)
 	free_grid(env->env_var);
 	free_char1(4, _line, line, env, cmd);
 }
+
+/**
+ * free_m3 - frees multiple variables
+ * @PATH: linked list of the PATH
+ * @env: copy of the environment
+ * @line: the line
+ */
+
+void free_m3(list_t *PATH, New_env *env, char *line)
+{
+	free_list(&PATH);
+	free_grid(env->env_var);
+	free_char1(2, line, env);
+}
