@@ -120,3 +120,24 @@ int M_c(char *d, char *L, size_t *N, char *P, list_t *p, New_env *env, int F)
 	return (X);
 }
 
+/**
+ * tokeniz - custom tokenizer
+ * @toks: the array to hold the results
+ * @L: the string to tokenize
+ * @d: the delimiter
+ */
+
+void tokeniz(char **toks, char *L, char *d)
+{
+	char *tmp;
+	int i;
+
+	tmp = _strtok(L, d);
+	for (i = 0; tmp; i++)
+	{
+		toks[i] = _strdup(tmp);
+		tmp = _strtok(NULL, d);
+	}
+
+	toks[i] = NULL;
+}
