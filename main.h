@@ -68,6 +68,7 @@ char *get_cmd(list_t *head, char *str, int *exit_code,
 		char *exec_err, char *name, size_t ncmd);
 char *_liner(char *str);
 char *int_to_str(int n);
+void var_name_cat(char *new_var, char *name, char *sign, char *value);
 
 /*<---------Built Ins----------->*/
 int check_exit(char *s, int *exit_code, char *prg, size_t ncmd);
@@ -112,7 +113,6 @@ void free_grid(char **grid);
 void free_char1(const unsigned int n, ...);
 void free_list(list_t **head);
 void free_grid_half(char **grid);
-
 void free_m1(list_t *PATH, New_env *env, char *_line, char *line);
 void free_m2(list_t *PATH, New_env *env, char *_line, char *line, char *cmd);
 void free_m3(list_t *PATH, New_env *env, char *line);

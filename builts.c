@@ -116,9 +116,8 @@ int _set_env(char *var_name, char *var_value, int condition, New_env *env)
 		return (-1);
 	}
 
-	_strcpy(new_var, var_name);
-	_strcat(new_var, "=");
-	_strcat(new_var, var_value);
+	var_name_cat(new_var, var_name, "=", var_value);
+
 
 	for (i = 0; env->env_var[i]; i++)
 	{
@@ -140,3 +139,18 @@ int _set_env(char *var_name, char *var_value, int condition, New_env *env)
 	env->env_var[i] = new_var;
 	return (0);
 }
+
+/**
+ * var_name_cat - concatenate the new var
+ * @new_var: the new variable
+ * @name: the var's name
+ * @sign: equal sign
+ * @value: the var's value
+ */
+void var_name_cat(char *new_var, char *name, char *sign, char *value)
+{
+	_strcpy(new_var, name);
+	_strcat(new_var, sign);
+	_strcat(new_var, value);
+}
+
